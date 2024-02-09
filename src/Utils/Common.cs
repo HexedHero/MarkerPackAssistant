@@ -2,6 +2,7 @@
 
 namespace HexedHero.Blish_HUD.MarkerPackAssistant.Utils
 {
+
     public class Common
     {
 
@@ -15,4 +16,5 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Utils
         }
 
     }
+
 }
