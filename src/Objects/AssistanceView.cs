@@ -1,16 +1,16 @@
 ﻿using Blish_HUD;
+using Blish_HUD.Content;
 using Blish_HUD.Controls;
 using Blish_HUD.Graphics.UI;
-using Microsoft.Xna.Framework;
-using System.Threading.Tasks;
-using System.Threading;
-using Blish_HUD.Content;
+using Blish_HUD.Modules;
 using HexedHero.Blish_HUD.MarkerPackAssistant.Managers;
+using HexedHero.Blish_HUD.MarkerPackAssistant.Utils;
+using Microsoft.Xna.Framework;
+using System;
 using System.Diagnostics;
 using System.IO;
-using System;
-using HexedHero.Blish_HUD.MarkerPackAssistant.Utils;
-using Blish_HUD.Modules;
+using System.Threading;
+using System.Threading.Tasks;
 using File = System.IO.File;
 
 namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects

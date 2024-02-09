@@ -1,11 +1,11 @@
 ﻿using Blish_HUD.Content;
 using Blish_HUD.Controls;
-using System.Reflection;
-using System;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Module = Blish_HUD.Modules.Module;
 using Blish_HUD.Modules;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Reflection;
+using Module = Blish_HUD.Modules.Module;
 
 namespace HexedHero.Blish_HUD.MarkerPackAssistant.Utils
 {

@@ -1,8 +1,8 @@
 ﻿using Blish_HUD;
 using Blish_HUD.Content;
 using Blish_HUD.Controls;
-using HexedHero.Blish_HUD.MarkerPackAssistant.Utils;
 using HexedHero.Blish_HUD.MarkerPackAssistant.Objects;
+using HexedHero.Blish_HUD.MarkerPackAssistant.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
