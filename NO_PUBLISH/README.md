@@ -1,0 +1,1 @@
+Files inside this folder are not to be published with the module, these are mostly just assets.

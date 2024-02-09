@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "gw2": {
+      "commandName": "Executable",
+      "executablePath": "D:\\SteamLibrary\\steamapps\\common\\Guild Wars 2\\BlishHUD\\Blish HUD.exe",
+      "commandLineArgs": "--debug --module \"$(ProjectDir)\\$(BaseOutputPath)\\$(Configuration)/$(TargetFramework)\\$(TargetName).bhm\" --settings \"..\\Settings_$(TargetName)\""
+    },
+    "powershell": {
+      "commandName": "Executable",
+      "executablePath": "D:\\SteamLibrary\\steamapps\\common\\Guild Wars 2\\BlishHUD\\Blish HUD.exe",
+      "commandLineArgs": "--debug --process WindowsTerminal --window CASCADIA_HOSTING_WINDOW_CLASS --module \"$(ProjectDir)\\$(BaseOutputPath)\\$(Configuration)/$(TargetFramework)\\$(TargetName).bhm\" --settings \"..\\Settings_$(TargetName)\""
+    }
+  }
+}

@@ -1,0 +1,68 @@
+﻿using System.ComponentModel.Composition;
+using Blish_HUD.Controls;
+using Blish_HUD.Graphics.UI;
+using Blish_HUD.Modules;
+using Blish_HUD.Settings;
+using Blish_HUD.Settings.UI.Views;
+using HexedHero.Blish_HUD.MarkerPackAssistant.Managers;
+
+namespace HexedHero.Blish_HUD.MarkerPackAssistant
+{
+
+    [Export(typeof(Module))]
+    public class MarkerPackAssistant : Module
+    {
+
+        // Fake Singleton
+        public static MarkerPackAssistant Instance { get; private set; }
+        public ModuleParameters Module { get; private set; }
+
+        [ImportingConstructor]
+        public MarkerPackAssistant([Import("ModuleParameters")] ModuleParameters moduleParameters) : base(moduleParameters)
+        {
+
+            // Init
+            Module = moduleParameters;
+            Instance = this;
+
+        }
+
+        protected override void DefineSettings(SettingCollection settings)
+        {
+
+            // Send the settings to the module settings manager
+            ModuleSettingsManager.Instance.DefineSettings(settings);
+
+        }
+
+        protected override void Initialize()
+        {
+
+            // Load managers
+            _ = WindowManager.Instance;
+            _ = ModuleSettingsManager.Instance;
+
+        }
+
+        protected override void Unload()
+        {
+
+            // Unload windows
+            WindowManager.Instance.Unload();
+            ModuleSettingsManager.Instance.Unload();
+
+            // Unload module instance
+            Instance = null;
+
+        }
+
+        public override IView GetSettingsView()
+        {
+
+            return new SettingsView(new SettingCollection());
+
+        }
+
+    }
+
+}

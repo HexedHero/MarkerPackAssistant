@@ -1,0 +1,19 @@
+{
+  "name": "Marker Pack Assistant",
+  "version": "1.0.0",
+  "namespace": "HexedHero.Blish_HUD.MarkerPackAssistant",
+  "package": "MarkerPackAssistant.dll",
+  "manifest_version": 1,
+  "description": "Assistant for making marker packs.",
+  "dependencies": {
+    "bh.blishhud": ">=1.0.0"
+  },
+  "url": "https://github.com/HexedHero/MarkerPackAssistant",
+  "contributors": [
+    {
+      "name": "HexedHero",
+      "username": "HexedHero.3854",
+      "url": "https://github.com/HexedHero"
+    }
+  ]
+}
