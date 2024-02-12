@@ -26,20 +26,20 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant
 
         }
 
-        protected override void DefineSettings(SettingCollection settings)
-        {
-
-            // Send the settings to the module settings manager
-            ModuleSettingsManager.Instance.DefineSettings(settings);
-
-        }
-
         protected override void Initialize()
         {
 
             // Load managers
             _ = WindowManager.Instance;
             _ = ModuleSettingsManager.Instance;
+
+        }
+
+        protected override void DefineSettings(SettingCollection settings)
+        {
+
+            // Send the settings to the module settings manager
+            ModuleSettingsManager.Instance.DefineSettings(settings);
 
         }
 
