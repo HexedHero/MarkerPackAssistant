@@ -1,4 +1,5 @@
-﻿using Blish_HUD.Graphics.UI;
+﻿using Blish_HUD;
+using Blish_HUD.Graphics.UI;
 using Blish_HUD.Modules;
 using Blish_HUD.Settings;
 using Blish_HUD.Settings.UI.Views;
@@ -15,6 +16,8 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant
         // Fake Singleton
         public static MarkerPackAssistant Instance { get; private set; }
         public ModuleParameters Module { get; private set; }
+
+        public readonly Logger Logger = Logger.GetLogger(typeof(MarkerPackAssistant));
 
         [ImportingConstructor]
         public MarkerPackAssistant([Import("ModuleParameters")] ModuleParameters moduleParameters) : base(moduleParameters)

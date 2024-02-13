@@ -17,50 +17,76 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Utils
     public class Reflection
     {
 
-        public static void InjectNewBackground(StandardWindow Window, AsyncTexture2D backgroundTexture, Rectangle Bounds)
+        public static void InjectNewBackground(TabbedWindow2 Window, Texture2D backgroundTexture, Rectangle Bounds)
         {
 
-            InjectNewBackground(Window, (Texture2D)backgroundTexture, Bounds);
+            try
+            {
+
+                Type baseType = Window.GetType().BaseType;
+
+                // Force set the WindowBackground
+                PropertyInfo windowBackgroundPropertyInfo = baseType.GetProperty("WindowBackground", BindingFlags.NonPublic | BindingFlags.Instance);
+                windowBackgroundPropertyInfo.SetValue(Window, (AsyncTexture2D)backgroundTexture);
+
+                // Update the background bounds
+                InjectNewBackgroundBounds(Window, Bounds);
+
+            }
+            catch (Exception Exception)
+            {
+
+                MarkerPackAssistant.Instance.Logger.Error("Could not inject new background! Exception: " + Exception.Message);
+
+            }
 
         }
 
-        public static void InjectNewBackground(StandardWindow Window, Texture2D backgroundTexture, Rectangle Bounds)
+        public static void InjectNewBackgroundBounds(TabbedWindow2 Window, Rectangle Bounds)
         {
 
-            Type baseType = Window.GetType().BaseType;
+            try
+            {
 
-            // Force set the WindowBackground
-            PropertyInfo windowBackgroundPropertyInfo = baseType.GetProperty("WindowBackground", BindingFlags.NonPublic | BindingFlags.Instance);
-            windowBackgroundPropertyInfo.SetValue(Window, (AsyncTexture2D)backgroundTexture);
+                Type baseType = Window.GetType().BaseType;
 
-            // Update the background bounds
-            InjectNewBackgroundBounds(Window, Bounds);
+                // Force set the background image bounds
+                PropertyInfo windowContainerPropertyInfo = baseType.GetProperty("BackgroundDestinationBounds", BindingFlags.NonPublic | BindingFlags.Instance);
+                windowContainerPropertyInfo.SetValue(Window, Bounds);
 
-        }
+            }
+            catch (Exception Exception)
+            {
 
-        public static void InjectNewBackgroundBounds(StandardWindow Window, Rectangle Bounds)
-        {
+                MarkerPackAssistant.Instance.Logger.Error("Could not inject new background bounds! Exception: " + Exception.Message);
 
-            Type baseType = Window.GetType().BaseType;
-
-            // Force set the background image bounds
-            PropertyInfo windowContainerPropertyInfo = baseType.GetProperty("BackgroundDestinationBounds", BindingFlags.NonPublic | BindingFlags.Instance);
-            windowContainerPropertyInfo.SetValue(Window, Bounds);
+            }
 
         }
 
         public static void ReloadPathingMarkers(ModuleManager moduleManager)
         {
 
-            // Don't even ask
-            Module pathingModule = moduleManager.ModuleInstance;
-            Type moduleType = pathingModule.GetType();
-            PropertyInfo packInitiatorProperty = moduleType.GetProperty("PackInitiator");
-            var packInitiator = packInitiatorProperty.GetValue(pathingModule);
-            MethodInfo reloadPacksMethod = packInitiator.GetType().GetMethod("ReloadPacks");
-            reloadPacksMethod.Invoke(packInitiator, null);
+            try
+            {
 
-        }
+                Module pathingModule = moduleManager.ModuleInstance;
+                Type moduleType = pathingModule.GetType();
+                PropertyInfo packInitiatorProperty = moduleType.GetProperty("PackInitiator");
+                object packInitiator = packInitiatorProperty.GetValue(pathingModule);
+                MethodInfo reloadPacksMethod = packInitiator.GetType().GetMethod("ReloadPacks");
+                reloadPacksMethod.Invoke(packInitiator, null);
+
+            }
+            catch (Exception Exception)
+            {
+
+                MarkerPackAssistant.Instance.Logger.Error("Could not reload pathing markers! Exception: " + Exception.Message);
+
+            }
+
+}
 
     }
+
 }
