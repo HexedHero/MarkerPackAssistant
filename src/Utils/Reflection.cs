@@ -17,7 +17,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Utils
     public class Reflection
     {
 
-        public static void InjectNewBackground(TabbedWindow2 Window, Texture2D backgroundTexture, Rectangle Bounds)
+        public static void InjectNewBackground(StandardWindow Window, Texture2D backgroundTexture, Rectangle Bounds)
         {
 
             try
@@ -42,7 +42,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Utils
 
         }
 
-        public static void InjectNewBackgroundBounds(TabbedWindow2 Window, Rectangle Bounds)
+        public static void InjectNewBackgroundBounds(StandardWindow Window, Rectangle Bounds)
         {
 
             try
