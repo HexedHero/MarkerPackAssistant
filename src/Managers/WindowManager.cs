@@ -46,7 +46,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Managers
             // Load needed textures
             iconTexture = MarkerPackAssistant.Instance.Module.ContentsManager.GetTexture("102348_modified.png");
             emblemTexture = AsyncTexture2D.FromAssetId(102348);
-            backgroundTexture = AsyncTexture2D.FromAssetId(155985);
+            backgroundTexture = AsyncTexture2D.FromAssetId(155983);
 
             // Make corner icon
             cornerIcon = new CornerIcon()
@@ -79,7 +79,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Managers
             };
 
             // Add the background - Check if the texture was loaded by Blish or another module or this module at a different runtime else run the injection when it is loaded.
-            void injectBackground() => Reflection.InjectNewBackground(MainWindow, backgroundTexture, new Rectangle(-10, 30, 340, 320)); // TODO fix -10
+            void injectBackground() => Reflection.InjectNewBackground(MainWindow, backgroundTexture, new Rectangle(-10, 30, 340, 340)); // TODO fix -10
             if (backgroundTexture.HasSwapped) { injectBackground(); } else { backgroundTexture.TextureSwapped += delegate { injectBackground(); }; }
 
             // Add the Emblem - Emblem doesn't have AsyncTexture2D support so we need to set it later, same issue as the background
