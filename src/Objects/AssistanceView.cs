@@ -6,6 +6,7 @@ using Blish_HUD.Modules;
 using HexedHero.Blish_HUD.MarkerPackAssistant.Managers;
 using HexedHero.Blish_HUD.MarkerPackAssistant.Utils;
 using Microsoft.Xna.Framework;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -190,7 +191,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
 
                 CordsButton.Text = "Copied";
                 CordsButton.Enabled = false;
-                _ = ClipboardUtil.WindowsClipboardService.SetTextAsync($"xpos=\"{CharX}\" ypos=\"{CharY}\" zpos=\"{CharZ}\"");
+                _ = ClipboardUtil.WindowsClipboardService.SetTextAsync(FormattableString.Invariant($"xpos=\"{CharX}\" ypos=\"{CharY}\" zpos=\"{CharZ}\""));
                 await Task.Delay(333);
                 CordsButton.Text = "Copy";
                 CordsButton.Enabled = true;
@@ -419,9 +420,9 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
                 POIButton.Text = "Copied";
                 POIButton.Enabled = false;
                 string Map = $"{MapID}";
-                string Position = $"xpos=\"{CharX}\" ypos=\"{CharY}\" zpos=\"{CharZ}\"";
+                string Position = FormattableString.Invariant($"xpos=\"{CharX}\" ypos=\"{CharY}\" zpos=\"{CharZ}\"");
                 string randomGUID = Common.GetRandomGUID();
-                _ = ClipboardUtil.WindowsClipboardService.SetTextAsync($"<POI MapID=\"{Map}\" {Position} GUID=\"{randomGUID}\"/>"); // TODO format information
+                _ = ClipboardUtil.WindowsClipboardService.SetTextAsync($"<POI MapID=\"{Map}\" {Position} GUID=\"{randomGUID}\"/>");
                 await Task.Delay(333);
                 POIButton.Text = "Copy";
                 POIButton.Enabled = true;
