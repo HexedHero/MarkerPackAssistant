@@ -85,7 +85,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
             POILabel?.Dispose();
             POIImage?.Dispose();
             POIButton?.Dispose();
-            UpdaterTaskToken.Cancel();
+            UpdaterTaskToken?.Cancel();
 
         }
 
