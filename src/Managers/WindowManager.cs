@@ -64,8 +64,8 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Managers
             // Make main window
             MainWindow = new StandardWindow(
                     ContentService.Textures.TransparentPixel, // See Below
-                    new Rectangle(5, 5, 310, 220), // Window
-                    new Rectangle(30, 30, 260, 180) // Content
+                    new Rectangle(5, 5, 330, 220), // Window
+                    new Rectangle(30, 30, 300, 180) // Content
                 )
             {
 
@@ -79,7 +79,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Managers
             };
 
             // Add the background - Check if the texture was loaded by Blish or another module or this module at a different runtime else run the injection when it is loaded.
-            void injectBackground() => Reflection.InjectNewBackground(MainWindow, backgroundTexture, new Rectangle(-10, 30, 340, 340)); // TODO fix -10
+            void injectBackground() => Reflection.InjectNewBackground(MainWindow, backgroundTexture, new Rectangle(-10, 30, 365, 340)); // TODO fix -10
             if (backgroundTexture.HasSwapped) { injectBackground(); } else { backgroundTexture.TextureSwapped += delegate { injectBackground(); }; }
 
             // Add the Emblem - Emblem doesn't have AsyncTexture2D support so we need to set it later, same issue as the background

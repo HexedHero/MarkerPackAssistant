@@ -100,7 +100,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
             {
 
                 FlowDirection = ControlFlowDirection.SingleTopToBottom,
-                Size = new Point(260, 180),
+                Size = new Point(280, 180),
                 Parent = container
 
             };
@@ -121,7 +121,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
             {
 
                 FlowDirection = ControlFlowDirection.SingleLeftToRight,
-                Size = new Point(220, 25),
+                Size = new Point(280, 25),
                 Parent = GlobalFlowPanel
 
             };
@@ -172,7 +172,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
             {
 
                 FlowDirection = ControlFlowDirection.SingleLeftToRight,
-                Size = new Point(260, 25),
+                Size = new Point(280, 25),
                 Parent = GlobalFlowPanel
 
             };
@@ -213,7 +213,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
 
                 Text = "ERROR",
                 Location = new Point(0, 0),
-                Size = new Point(200, 25),
+                Size = new Point(260, 25),
                 Parent = CordsFlowPanel
 
             };
@@ -234,7 +234,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
             {
 
                 FlowDirection = ControlFlowDirection.SingleLeftToRight,
-                Size = new Point(260, 25),
+                Size = new Point(280, 25),
                 Parent = GlobalFlowPanel
 
             };
@@ -333,7 +333,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
                 Text = ModuleSettingsManager.Instance.ModuleSettings.MarkerPackBuildPath.Value,
                 Font = GameService.Content.DefaultFont12,
                 Location = new Point(0, 0),
-                Size = new Point(160, 25),
+                Size = new Point(180, 25),
                 Parent = RunFlowPanel
 
             };
@@ -349,7 +349,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
             {
 
                 FlowDirection = ControlFlowDirection.SingleLeftToRight,
-                Size = new Point(260, 25),
+                Size = new Point(280, 25),
                 Parent = GlobalFlowPanel
 
             };
@@ -400,7 +400,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
             {
 
                 FlowDirection = ControlFlowDirection.SingleLeftToRight,
-                Size = new Point(260, 25),
+                Size = new Point(280, 25),
                 Parent = GlobalFlowPanel
 
             };
