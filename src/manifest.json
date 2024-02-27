@@ -1,6 +1,6 @@
 {
   "name": "Marker Pack Assistant",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "namespace": "HexedHero.Blish_HUD.MarkerPackAssistant",
   "package": "MarkerPackAssistant.dll",
   "manifest_version": 1,
