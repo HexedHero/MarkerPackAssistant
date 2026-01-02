@@ -87,6 +87,8 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
             POIButton?.Dispose();
             UpdaterTaskToken?.Cancel();
 
+            // Disable keybinds
+            ModuleSettingsManager.Instance.DisableKeybinds();
         }
 
         protected override void Build(Container container)
@@ -362,6 +364,9 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
                 }
 
             });
+
+            // Enable keybinds once built
+            ModuleSettingsManager.Instance.EnableKeybinds();
 
         }
 
