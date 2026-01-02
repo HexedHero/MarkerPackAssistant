@@ -34,11 +34,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Managers
 
         public void Unload()
         {
-            this.KeyBindCopyMap.Value.Enabled   = false;
-            this.KeyBindCopyXYZ.Value.Enabled   = false;
-            this.KeyBindCopyGUID.Value.Enabled  = false;
-            this.KeyBindCopyPOI.Value.Enabled   = false;
-            this.KeyBindRun.Value.Enabled       = false;
+            DisableKeybinds();
 
             this.KeyBindCopyMap.Value.Activated     -= TriggerCopyMap;
             this.KeyBindCopyXYZ.Value.Activated     -= TriggerCopyXYZ;
@@ -79,11 +75,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Managers
 
         private void HandleKeybinds()
         {
-            this.KeyBindCopyMap.Value.Enabled   = true;
-            this.KeyBindCopyXYZ.Value.Enabled   = true;
-            this.KeyBindCopyGUID.Value.Enabled  = true;
-            this.KeyBindCopyPOI.Value.Enabled   = true;
-            this.KeyBindRun.Value.Enabled       = true;
+            DisableKeybinds();
 
             this.KeyBindCopyMap.Value.Activated     += TriggerCopyMap;
             this.KeyBindCopyXYZ.Value.Activated     += TriggerCopyXYZ;
@@ -110,6 +102,28 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Managers
 
         private void TriggerRun(object sender, EventArgs e) {
             _ = WindowManager.Instance.AssistanceView.RunBat();
+        }
+
+        public void EnableKeybinds()
+        {
+            if (this.KeyBindCopyMap == null) return;
+
+            this.KeyBindCopyMap.Value.Enabled = true;
+            this.KeyBindCopyXYZ.Value.Enabled = true;
+            this.KeyBindCopyGUID.Value.Enabled = true;
+            this.KeyBindCopyPOI.Value.Enabled = true;
+            this.KeyBindRun.Value.Enabled = true;
+        }
+
+        public void DisableKeybinds()
+        {
+            if (this.KeyBindCopyMap == null) return;
+
+            this.KeyBindCopyMap.Value.Enabled = false;
+            this.KeyBindCopyXYZ.Value.Enabled = false;
+            this.KeyBindCopyGUID.Value.Enabled = false;
+            this.KeyBindCopyPOI.Value.Enabled = false;
+            this.KeyBindRun.Value.Enabled = false;
         }
 
         #endregion
