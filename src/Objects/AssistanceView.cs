@@ -496,7 +496,6 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
             POIButton.Enabled = true;
         }
 
-
     }
 
 }
