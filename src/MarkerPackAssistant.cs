@@ -17,6 +17,8 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant
         public static MarkerPackAssistant Instance { get; private set; }
         public ModuleParameters Module { get; private set; }
 
+        private SettingCollection _settingsCollection;
+
         public readonly Logger Logger = Logger.GetLogger(typeof(MarkerPackAssistant));
 
         [ImportingConstructor]
@@ -40,6 +42,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant
 
         protected override void DefineSettings(SettingCollection settings)
         {
+            _settingsCollection = settings;
 
             // Send the settings to the module settings manager
             ModuleSettingsManager.Instance.DefineSettings(settings);
@@ -60,9 +63,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant
 
         public override IView GetSettingsView()
         {
-
-            return new SettingsView(new SettingCollection());
-
+            return new SettingsView(_settingsCollection ?? new SettingCollection());
         }
 
     }

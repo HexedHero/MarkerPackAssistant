@@ -87,6 +87,8 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
             POIButton?.Dispose();
             UpdaterTaskToken?.Cancel();
 
+            // Disable keybinds
+            ModuleSettingsManager.Instance.DisableKeybinds();
         }
 
         protected override void Build(Container container)
@@ -135,17 +137,8 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
                 Parent = MapIDFlowPanel
 
             };
-            MapIDButton.Click += async delegate
-            {
 
-                MapIDButton.Text = "Copied";
-                MapIDButton.Enabled = false;
-                _ = ClipboardUtil.WindowsClipboardService.SetTextAsync(MapID.ToString());
-                await Task.Delay(333);
-                MapIDButton.Text = "Copy";
-                MapIDButton.Enabled = true;
-
-            };
+            MapIDButton.Click += async delegate { await CopyMapID(); };
 
             MapIDImage = new Image()
             {
@@ -186,17 +179,8 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
                 Parent = CordsFlowPanel
 
             };
-            CordsButton.Click += async delegate
-            {
 
-                CordsButton.Text = "Copied";
-                CordsButton.Enabled = false;
-                _ = ClipboardUtil.WindowsClipboardService.SetTextAsync(FormattableString.Invariant($"xpos=\"{CharX}\" ypos=\"{CharY}\" zpos=\"{CharZ}\""));
-                await Task.Delay(333);
-                CordsButton.Text = "Copy";
-                CordsButton.Enabled = true;
-
-            };
+            CordsButton.Click += async delegate { await CopyCords(); };
 
             CordsImage = new Image()
             {
@@ -249,73 +233,7 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
 
             };
 
-            RunButton.Click += async delegate
-            {
-
-                RunButton.Text = "Running";
-                RunButton.Enabled = false;
-
-                await Task.Run(async () =>
-                {
-
-                    string path = ModuleSettingsManager.Instance.ModuleSettings.MarkerPackBuildPath.Value;
-
-                    // Check if the path is to a valid .bat file
-                    if (File.Exists(path) && Path.GetExtension(path).Equals(".bat"))
-                    {
-
-                        Process process = new Process();
-                        process.StartInfo.WorkingDirectory = Path.GetDirectoryName(path);
-                        process.StartInfo.FileName = path;
-                        process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                        process.StartInfo.CreateNoWindow = true;
-                        process.Start();
-
-                        // Wait for the process to finish with a 30 second limit
-                        if (!process.WaitForExit(30000))
-                        {
-
-                            process.Kill();
-                            RunButton.Text = "KILLED";
-                            await Task.Delay(3000);
-
-                        }
-
-                        // Tiny delay to ensure file paths are updated
-                        await Task.Delay(25);
-
-                        // Find the pathing module
-                        foreach (ModuleManager moduleManager in GameService.Module.Modules)
-                        {
-
-                            if (moduleManager.Manifest.Namespace.ToLower().Equals("bh.community.pathing") && moduleManager.Enabled)
-                            {
-
-                                // Reload markers
-                                Reflection.ReloadPathingMarkers(moduleManager);
-
-                                // Let pathing update
-                                await Task.Delay(250);
-
-                            }
-
-                        }
-
-                    }
-                    else
-                    {
-
-                        RunButton.Text = "INVALID";
-                        await Task.Delay(1000);
-
-                    }
-
-                });
-
-                RunButton.Text = "Run";
-                RunButton.Enabled = true;
-
-            };
+            RunButton.Click += async delegate { await RunBat(); };
 
             RunImage = new Image()
             {
@@ -363,17 +281,8 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
                 Parent = RandomGUIDFlowPanel
 
             };
-            RandomGUIDButton.Click += async delegate
-            {
 
-                RandomGUIDButton.Text = "Copied";
-                RandomGUIDButton.Enabled = false;
-                _ = ClipboardUtil.WindowsClipboardService.SetTextAsync(Common.GetRandomGUID());
-                await Task.Delay(333);
-                RandomGUIDButton.Text = "Copy";
-                RandomGUIDButton.Enabled = true;
-
-            };
+            RandomGUIDButton.Click += async delegate { await CopyRandomGUID(); };
 
             RandomGUIDImage = new Image()
             {
@@ -414,20 +323,8 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
                 Parent = POIFlowPanel
 
             };
-            POIButton.Click += async delegate
-            {
 
-                POIButton.Text = "Copied";
-                POIButton.Enabled = false;
-                string Map = $"{MapID}";
-                string Position = FormattableString.Invariant($"xpos=\"{CharX}\" ypos=\"{CharY}\" zpos=\"{CharZ}\"");
-                string randomGUID = Common.GetRandomGUID();
-                _ = ClipboardUtil.WindowsClipboardService.SetTextAsync($"<POI MapID=\"{Map}\" {Position} GUID=\"{randomGUID}\"/>");
-                await Task.Delay(333);
-                POIButton.Text = "Copy";
-                POIButton.Enabled = true;
-
-            };
+            POIButton.Click += async delegate { await CopyPOI(); };
 
             POIImage = new Image()
             {
@@ -468,6 +365,9 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
 
             });
 
+            // Enable keybinds once built
+            ModuleSettingsManager.Instance.EnableKeybinds();
+
         }
 
         public void UpdateMapID(object sender, ValueEventArgs<int> e)
@@ -487,6 +387,115 @@ namespace HexedHero.Blish_HUD.MarkerPackAssistant.Objects
             CordsLabel.Text = "XYZ: %location%".Replace("%location%", CharX.ToString("F2") + ", " + CharY.ToString("F2") + ", " + CharZ.ToString("F2"));
 
         }
+
+        public async Task CopyMapID()
+        {
+            MapIDButton.Text = "Copied";
+            MapIDButton.Enabled = false;
+            _ = ClipboardUtil.WindowsClipboardService.SetTextAsync(MapID.ToString());
+            await Task.Delay(333);
+            MapIDButton.Text = "Copy";
+            MapIDButton.Enabled = true;
+        }
+
+        public async Task CopyCords()
+        {
+            CordsButton.Text = "Copied";
+            CordsButton.Enabled = false;
+            _ = ClipboardUtil.WindowsClipboardService.SetTextAsync(FormattableString.Invariant($"xpos=\"{CharX}\" ypos=\"{CharY}\" zpos=\"{CharZ}\""));
+            await Task.Delay(333);
+            CordsButton.Text = "Copy";
+            CordsButton.Enabled = true;
+        }
+
+        public async Task CopyRandomGUID()
+        {
+            RandomGUIDButton.Text = "Copied";
+            RandomGUIDButton.Enabled = false;
+            _ = ClipboardUtil.WindowsClipboardService.SetTextAsync(Common.GetRandomGUID());
+            await Task.Delay(333);
+            RandomGUIDButton.Text = "Copy";
+            RandomGUIDButton.Enabled = true;
+        }
+
+        public async Task RunBat() {
+            RunButton.Text = "Running";
+            RunButton.Enabled = false;
+
+            await Task.Run(async () =>
+            {
+
+                string path = ModuleSettingsManager.Instance.ModuleSettings.MarkerPackBuildPath.Value;
+
+                // Check if the path is to a valid .bat file
+                if (File.Exists(path) && Path.GetExtension(path).Equals(".bat"))
+                {
+
+                    Process process = new Process();
+                    process.StartInfo.WorkingDirectory = Path.GetDirectoryName(path);
+                    process.StartInfo.FileName = path;
+                    process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    process.StartInfo.CreateNoWindow = true;
+                    process.Start();
+
+                    // Wait for the process to finish with a 30 second limit
+                    if (!process.WaitForExit(30000))
+                    {
+
+                        process.Kill();
+                        RunButton.Text = "KILLED";
+                        await Task.Delay(3000);
+
+                    }
+
+                    // Tiny delay to ensure file paths are updated
+                    await Task.Delay(25);
+
+                    // Find the pathing module
+                    foreach (ModuleManager moduleManager in GameService.Module.Modules)
+                    {
+
+                        if (moduleManager.Manifest.Namespace.ToLower().Equals("bh.community.pathing") && moduleManager.Enabled)
+                        {
+
+                            // Reload markers
+                            Reflection.ReloadPathingMarkers(moduleManager);
+
+                            // Let pathing update
+                            await Task.Delay(250);
+
+                        }
+
+                    }
+
+                }
+                else
+                {
+
+                    RunButton.Text = "INVALID";
+                    await Task.Delay(1000);
+
+                }
+
+            });
+
+            RunButton.Text = "Run";
+            RunButton.Enabled = true;
+        }
+
+        public async Task CopyPOI()
+        {
+            POIButton.Text = "Copied";
+            POIButton.Enabled = false;
+            string Map = $"{MapID}";
+            string Position = FormattableString.Invariant($"xpos=\"{CharX}\" ypos=\"{CharY}\" zpos=\"{CharZ}\"");
+            string randomGUID = Common.GetRandomGUID();
+            _ = ClipboardUtil.WindowsClipboardService.SetTextAsync($"<POI MapID=\"{Map}\" {Position} GUID=\"{randomGUID}\"/>");
+            await Task.Delay(333);
+            POIButton.Text = "Copy";
+            POIButton.Enabled = true;
+        }
+
 
     }
 
